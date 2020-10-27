@@ -1,6 +1,6 @@
 if ('geolocation' in navigator) {
     console.log('geolocation available')
-    navigator.geolocation.getCurrentPosition(position => {
+    navigator.geolocation.watchPosition(position => {
         let lat = position.coords.latitude
         let long = position.coords.longitude
         let accuracy = position.coords.accuracy
