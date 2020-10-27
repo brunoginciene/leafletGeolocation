@@ -1,0 +1,25 @@
+{
+  "name": "leafletgeolocation",
+  "version": "1.0.0",
+  "description": "Leaflet and Geolocation Web API",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunoginciene/leafletGeolocation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunoginciene/leafletGeolocation/issues"
+  },
+  "homepage": "https://github.com/brunoginciene/leafletGeolocation#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
