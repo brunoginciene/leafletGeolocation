@@ -1,5 +1,5 @@
 // Create Leaflet map
-const map = L.map('map').setView([0, 0], 1);
+const map = L.map('map', {zoomControl: false}).setView([0, 0], 1);
 
 // Create Basemap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -14,11 +14,6 @@ let circle = L.circle([0, 0], {
     radius: 0
 }).addTo(map)
 
-// Create marker
-let marker = L.marker([0, 0], {
-    draggable: true
-}).addTo(map)
-
 // Get the Coords from the location
 var options = {
   enableHighAccuracy: true,
@@ -27,9 +22,9 @@ var options = {
 let firstTime = true
 
 function success (position) {
-    let lat = position.coords.latitude
-    let long = position.coords.longitude
-    let accuracy = position.coords.accuracy
+    let lat = position.coords.latitude.toFixed(6)
+    let long = position.coords.longitude.toFixed(6)
+    let accuracy = position.coords.accuracy.toFixed(2)
 
     document.getElementById('lat').textContent = lat
     document.getElementById('long').textContent = long
@@ -53,9 +48,6 @@ function success (position) {
     <b> Longitude: </b> ${long}° <br>
     <b> Acurácia: </b> ${accuracy} m
     `) 
-
-    // Create marker
-    marker.setLatLng([lat, long])
 }
 
 function error (err) {
@@ -68,3 +60,23 @@ if ('geolocation' in navigator) {
 } else {
     console.log('geolocation not available')
 }
+
+// Create marker
+function addMarker(){
+    console.log('add marker')
+    navigator.geolocation.getCurrentPosition(function(position){
+        let markerLat = position.coords.latitude.toFixed(6)
+        let markerLong = position.coords.longitude.toFixed(6)
+        let markerAccuracy = position.coords.accuracy.toFixed(2)
+
+        let marker = L.marker([markerLat, markerLong], {draggable: true}).addTo(map).bindPopup(`Lat: ${markerLat} <br> Long: ${markerLong}`)
+        
+
+    }, 
+    error, 
+    options
+    )
+}
+
+let btnAddMarker = document.getElementById('btnAddMarker')
+btnAddMarker.addEventListener('click', addMarker)
