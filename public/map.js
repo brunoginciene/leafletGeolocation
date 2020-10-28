@@ -22,9 +22,9 @@ let marker = L.marker([0, 0], {
 // Get the Coords from the location
 var options = {
   enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
 }
+
+let firstTime = true
 
 function success (position) {
     let lat = position.coords.latitude
@@ -36,10 +36,12 @@ function success (position) {
     document.getElementById('accuracy').textContent = accuracy
 
     //Set the map view
-    if (accuracy < 100){
+    if (firstTime && accuracy < 100){
         map.setView([lat, long], 20)
-    } else {
+        firstTime = false
+    } else if (firstTime && accuracy >= 100) {
         map.setView([lat, long], 13)
+        firstTime = false
     }
 
     //Set the lat, long and radius of the circle
