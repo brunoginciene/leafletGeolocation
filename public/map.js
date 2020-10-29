@@ -64,15 +64,25 @@ if ('geolocation' in navigator) {
 }
 
 // Create marker
+let firstMarker = true
+
 function addMarker(){
-    
+    console.log(firstMarker)
     navigator.geolocation.getCurrentPosition(function(position){
         console.log(position)
         let markerLat = position.coords.latitude
         let markerLong = position.coords.longitude
         let markerAccuracy = position.coords.accuracy
         
-        let marker = L.marker([markerLat, markerLong], {draggable: true}).addTo(map)
+        let marker = L.marker([markerLat, markerLong], {draggable: true, title: "novoMarcador"})
+
+        if (firstMarker){
+            marker.addTo(map)
+            firstMarker = false 
+        } else {
+            alert('marcador já existe')
+        }
+        
 
         //Marker drag function
         marker.on('dragend', function(event) {
@@ -88,17 +98,17 @@ function addMarker(){
 
         $('#btnDelete').on('click', function(){
             marker.remove()
+            firstMarker = true
         })
 
         
         
-    }, 
-    error, 
-    options
-    )
+    }, error, options)
 }
 
 let btnAddMarker = document.getElementById('btnAddMarker')
 btnAddMarker.addEventListener('click', addMarker)
+
+
 
 
