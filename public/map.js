@@ -1,5 +1,5 @@
 // Create Leaflet map
-const map = L.map('map', {zoomControl: false}).setView([0, 0], 1);
+const map = L.map('map', {zoomControl: false}).setView([0, 0], 2);
 
 // Create Basemap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -67,9 +67,7 @@ if ('geolocation' in navigator) {
 let firstMarker = true
 
 function addMarker(){
-    console.log(firstMarker)
     navigator.geolocation.getCurrentPosition(function(position){
-        console.log(position)
         let markerLat = position.coords.latitude
         let markerLong = position.coords.longitude
         let markerAccuracy = position.coords.accuracy
@@ -80,7 +78,7 @@ function addMarker(){
             marker.addTo(map)
             firstMarker = false 
         } else {
-            alert('marcador já existe')
+            $('#alerta').modal()
         }
         
 
@@ -101,8 +99,6 @@ function addMarker(){
             firstMarker = true
         })
 
-        
-        
     }, error, options)
 }
 
