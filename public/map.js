@@ -17,6 +17,8 @@ let circle = L.circle([0, 0], {
 // Get the Coords from the location
 var options = {
   enableHighAccuracy: true,
+  timeout: 30000,
+  maximumAge: 500000
 }
 
 let firstTime = true
@@ -63,15 +65,22 @@ if ('geolocation' in navigator) {
 
 // Create marker
 function addMarker(){
-    console.log('add marker')
+    
     navigator.geolocation.getCurrentPosition(function(position){
-        let markerLat = position.coords.latitude.toFixed(6)
-        let markerLong = position.coords.longitude.toFixed(6)
-        let markerAccuracy = position.coords.accuracy.toFixed(2)
-
-        let marker = L.marker([markerLat, markerLong], {draggable: true}).addTo(map).bindPopup(`Lat: ${markerLat} <br> Long: ${markerLong}`)
+        console.log(position)
+        let markerLat = position.coords.latitude
+        let markerLong = position.coords.longitude
+        let markerAccuracy = position.coords.accuracy
         
+        let marker = L.marker([markerLat, markerLong], {draggable: true}).addTo(map)
 
+        //Marker drag function
+        marker.on('dragend', function(event) {
+            let latlng = event.target.getLatLng();
+            console.log(latlng.lat, latlng.lng)
+        
+        })
+        
     }, 
     error, 
     options
@@ -80,3 +89,5 @@ function addMarker(){
 
 let btnAddMarker = document.getElementById('btnAddMarker')
 btnAddMarker.addEventListener('click', addMarker)
+
+
