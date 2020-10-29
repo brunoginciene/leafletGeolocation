@@ -78,7 +78,10 @@ function addMarker(){
         marker.on('dragend', function(event) {
             let latlng = event.target.getLatLng();
             console.log(latlng.lat, latlng.lng)
+        })
         
+        marker.on('click', function(){
+            $('#exampleModal').modal()
         })
         
     }, 
