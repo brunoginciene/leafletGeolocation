@@ -78,11 +78,19 @@ function addMarker(){
         marker.on('dragend', function(event) {
             let latlng = event.target.getLatLng();
             console.log(latlng.lat, latlng.lng)
+            document.getElementById("markerLat").value = latlng.lat
+            document.getElementById("markerLong").value = latlng.lng
         })
         
         marker.on('click', function(){
             $('#exampleModal').modal()
         })
+
+        $('#btnDelete').on('click', function(){
+            marker.remove()
+        })
+
+        
         
     }, 
     error, 
