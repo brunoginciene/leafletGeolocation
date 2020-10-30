@@ -101,9 +101,22 @@ function addMarker(){
 
     }, error, options)
 }
-
 let btnAddMarker = document.getElementById('btnAddMarker')
 btnAddMarker.addEventListener('click', addMarker)
+
+//Enviar formulário
+function sendData(){
+    let sendName = document.getElementById('nome').value
+    let sendDate = document.getElementById('date').value
+    let sendTime = document.getElementById('time').value
+    let sendLat = document.getElementById('markerLat').value
+    let sendLong = document.getElementById('markerLong').value
+
+    console.log(sendName, sendData, sendTime, sendLat, sendLong)
+    
+}
+let btnSendData = document.getElementById('btnSendData')
+btnSendData.addEventListener('click', sendData)
 
 
 
