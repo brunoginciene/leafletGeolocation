@@ -6,6 +6,14 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+//Get data from the database
+async function getData() {
+    const getResponse = await fetch('/api')
+    const getData = await getResponse.json()
+    console.log(getData)
+}
+getData()
+
 //Create cicle location
 let circle = L.circle([0, 0], {
     color: 'yellow',
@@ -131,7 +139,7 @@ function sendData(){
         body: JSON.stringify(data)
     }
 
-    fetch('/', options_send)
+    fetch('/api', options_send)
         .then(response =>{
             for (item in map._layers){
                 if (map._layers[item].options.title == "novoMarcador"){
