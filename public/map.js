@@ -68,8 +68,8 @@ let firstMarker = true
 
 function addMarker(){
     navigator.geolocation.getCurrentPosition(function(position){
-        let markerLat = position.coords.latitude
-        let markerLong = position.coords.longitude
+        let markerLat = position.coords.latitude.toFixed(6)
+        let markerLong = position.coords.longitude.toFixed(6)
         let markerAccuracy = position.coords.accuracy
         
         let marker = L.marker([markerLat, markerLong], {draggable: true, title: "novoMarcador"})
@@ -80,12 +80,13 @@ function addMarker(){
         } else {
             $('#alerta').modal()
         }
-        
+
+        document.getElementById("markerLat").value = markerLat
+        document.getElementById("markerLong").value = markerLong
 
         //Marker drag function
         marker.on('dragend', function(event) {
-            let latlng = event.target.getLatLng();
-            console.log(latlng.lat, latlng.lng)
+            let latlng = event.target.getLatLng()
             document.getElementById("markerLat").value = latlng.lat
             document.getElementById("markerLong").value = latlng.lng
         })
@@ -111,8 +112,30 @@ function sendData(){
     let sendTime = document.getElementById('time').value
     let sendLat = document.getElementById('markerLat').value
     let sendLong = document.getElementById('markerLong').value
+    let sendObs = document.getElementById('obs').value
 
-    console.log(sendName, sendData, sendTime, sendLat, sendLong)
+    let data = {
+        sendName, 
+        sendDate, 
+        sendTime, 
+        sendLat, 
+        sendLong,
+        sendObs
+    }
+
+    const options_send = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+
+    fetch('/', options_send)
+        .then(response =>{
+            $('#sucesso').modal()
+        })
+        
     
 }
 let btnSendData = document.getElementById('btnSendData')

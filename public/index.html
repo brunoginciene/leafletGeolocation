@@ -59,6 +59,7 @@
     <div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
+            <form>
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Atributos do marcador</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -67,39 +68,47 @@
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
+                    <form>
                         <div class="row">
                             <div class="col-md-12 ml-auto">
                                 <label for="nome" class="col-form-label">Nome:</label>
-                                <input type="text" class="form-control" id="nome" value="">
+                                <input type="text" class="form-control" id="nome" value="" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 ml-auto">
                                 <label for="date" class="col-form-label">Data:</label>
-                                <input type="date" class="form-control" id="date" value="">
+                                <input type="date" class="form-control" id="date" value="" required>
                             </div>
                             <hr>
                             <div class="col-md-6 ml-auto">
                                 <label for="time" class="col-form-label">Hora:</label>
-                                <input type="time" class="form-control" id="time" value="">
+                                <input type="time" class="form-control" id="time" value="" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 ml-auto">
                                 <label for="markerLat" class="col-form-label">Latitude:</label>
-                                <input type="text" class="form-control" id="markerLat" value="">
+                                <input type="text" class="form-control" id="markerLat" value="" required readonly>
                             </div>
                             <div class="col-md-6 ml-auto">
                                 <label for="markerLong" class="col-form-label">Longitude:</label>
-                                <input type="text" class="form-control" id="markerLong" value="">
+                                <input type="text" class="form-control" id="markerLong" value="" required readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 ml-auto">
+                                <label for="obs" class="col-form-label">Observações:</label>
+                                <textarea class="form-control" id="obs"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button id="btnDelete" type="button" class="btn btn-secondary" data-dismiss="modal">Deletar marcador</button>
-                    <button id="btnSendData" type="button" class="btn btn-primary">Salvar dados</button>
+                    <button id="btnSendData" type="submit" class="btn btn-primary">Salvar dados</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -112,6 +121,16 @@
                 Apenas um marcador pode ser adicionado de cada vez!<br>
                 <hr>
                 Clique no marcador para finalizar a sua coleta (<b>Deletar</b> ou <b>Salvar dados</b>) antes de adicionar um novo marcador.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sucesso -->
+    <div class="modal fade" id="sucesso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="alert alert-success" role="alert">
+                <p><strong>Sucesso!</strong><br> 
+                Dados enviados com sucesso!
             </div>
         </div>
     </div>
