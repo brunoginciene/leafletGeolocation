@@ -21,7 +21,6 @@ app.get('/api', (req, res) => {
 
 app.post('/api', (req, res) => {
     database.insert(req.body)
-    console.log(req.body)
     res.json({
         status: 'success'
     })

@@ -8,9 +8,26 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 //Get data from the database
 async function getData() {
+    const allMarkers = []
     const getResponse = await fetch('/api')
     const getData = await getResponse.json()
-    console.log(getData)
+    for (item in getData){
+        allMarkers.push(getData[item])
+    }
+    for (marcador in allMarkers){
+        L.marker([ allMarkers[marcador].sendLat, allMarkers[marcador].sendLong ]).addTo(map)
+            .bindPopup(`
+                <b> Nome: </b> ${allMarkers[marcador].sendName}<br>
+                <b> Data: </b> ${allMarkers[marcador].sendDate}<br>
+                <b> Hora: </b> ${allMarkers[marcador].sendTime}<br>
+                <b> Observação: </b> ${allMarkers[marcador].sendObs}<br>
+                <b> Latitude: </b> ${allMarkers[marcador].sendLat}°<br>
+                <b> Longitude: </b> ${allMarkers[marcador].sendLong}°<br>
+                <b> id: </b> ${allMarkers[item]._id}<br>
+            `)
+    }
+
+    
 }
 getData()
 
@@ -140,6 +157,9 @@ function sendData(){
     }
 
     fetch('/api', options_send)
+        .then(response =>{
+            getData()
+        })
         .then(response =>{
             for (item in map._layers){
                 if (map._layers[item].options.title == "novoMarcador"){
