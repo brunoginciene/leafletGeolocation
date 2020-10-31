@@ -143,6 +143,12 @@ function sendData(){
         })
         .then(response =>{
             $('#sucesso').modal()
+            document.getElementById('nome').value = ""
+            document.getElementById('date').value = ""
+            document.getElementById('time').value = ""
+            document.getElementById('markerLat').value = ""
+            document.getElementById('markerLong').value = ""
+            document.getElementById('obs').value = ""
         })
         
     
