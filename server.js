@@ -7,7 +7,9 @@ app.use(express.json())
 
 app.post('/', (req, res) => {
     console.log(req.body)
-    res.end()
+    res.json({
+        status: 'success'
+    })
 })
 
 app.listen(3000) 

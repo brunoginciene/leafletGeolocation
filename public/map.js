@@ -133,6 +133,15 @@ function sendData(){
 
     fetch('/', options_send)
         .then(response =>{
+            for (item in map._layers){
+                if (map._layers[item].options.title == "novoMarcador"){
+                    map._layers[item].remove()
+                    firstMarker = true
+                }
+            }
+            
+        })
+        .then(response =>{
             $('#sucesso').modal()
         })
         
