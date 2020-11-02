@@ -12,8 +12,13 @@ document {
     
 }
 
-.map { 
+.mymap { 
     width: 100%; 
     height:94.2%; 
     position: relative;
+}
+
+canvas {
+    margin-top: 10px;
+    margin-left: auto
 }

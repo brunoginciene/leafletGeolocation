@@ -1,10 +1,37 @@
 // Create Leaflet map
-const map = L.map('map', {zoomControl: false}).setView([0, 0], 2);
+const mymap = L.map('mymap', {zoomControl: false}).setView([0, 0], 2);
 
 // Create Basemap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+}).addTo(mymap);
+
+//P5 code
+var video
+var button
+
+let sketch = function(p) {
+    p.setup = function(){
+      p.createCanvas(320, 240);
+      p.background(50);
+      video = p.createCapture(p.VIDEO)
+      video.size(320, 240)
+      video.hide()
+      button = p.createButton('snap')
+      button.mousePressed(p.takesnap)
+      button.class('btn btn-primary')
+    }
+
+    p.draw = function() {
+        p.image(video, 0, 0, 320, 240);
+    }
+
+    p.takesnap = function(){
+        p.image(video, 0, 0, 320, 240)
+    }
+
+  };
+  new p5(sketch, 'foto');
 
 //Green marker
 var greenIcon = new L.Icon({
@@ -35,7 +62,7 @@ async function getData() {
         allMarkers.push(getData[item])
     }
     for (marcador in allMarkers){
-        L.marker([ allMarkers[marcador].sendLat, allMarkers[marcador].sendLong ], {icon: greenIcon}).addTo(map)
+        L.marker([ allMarkers[marcador].sendLat, allMarkers[marcador].sendLong ], {icon: greenIcon}).addTo(mymap)
             .bindPopup(`
                 <b> Nome: </b> ${allMarkers[marcador].sendName}<br>
                 <b> Data: </b> ${allMarkers[marcador].sendDate}<br>
@@ -57,7 +84,7 @@ let circle = L.circle([0, 0], {
     fillColor: 'yellow',
     fillOpacity: 0.5,
     radius: 0
-}).addTo(map)
+}).addTo(mymap)
 
 // Get the Coords from the location
 var options = {
@@ -79,10 +106,10 @@ function success (position) {
 
     //Set the map view
     if (firstTime && accuracy < 100){
-        map.setView([lat, long], 20)
+        mymap.setView([lat, long], 20)
         firstTime = false
     } else if (firstTime && accuracy >= 100) {
-        map.setView([lat, long], 13)
+        mymap.setView([lat, long], 13)
         firstTime = false
     }
 
@@ -120,7 +147,7 @@ function addMarker(){
         let marker = L.marker([markerLat, markerLong], {draggable: true, title: "novoMarcador", icon: redIcon})
 
         if (firstMarker){
-            marker.addTo(map)
+            marker.addTo(mymap)
             firstMarker = false 
         } else {
             $('#alerta').modal()
@@ -181,9 +208,9 @@ function sendData(){
             getData()
         })
         .then(response =>{
-            for (item in map._layers){
-                if (map._layers[item].options.title == "novoMarcador"){
-                    map._layers[item].remove()
+            for (item in mymap._layers){
+                if (mymap._layers[item].options.title == "novoMarcador"){
+                    mymap._layers[item].remove()
                     firstMarker = true
                 }
             }
