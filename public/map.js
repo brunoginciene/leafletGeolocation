@@ -6,6 +6,26 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+//Green marker
+var greenIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+//red marker
+var redIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
 //Get data from the database
 async function getData() {
     const allMarkers = []
@@ -15,7 +35,7 @@ async function getData() {
         allMarkers.push(getData[item])
     }
     for (marcador in allMarkers){
-        L.marker([ allMarkers[marcador].sendLat, allMarkers[marcador].sendLong ]).addTo(map)
+        L.marker([ allMarkers[marcador].sendLat, allMarkers[marcador].sendLong ], {icon: greenIcon}).addTo(map)
             .bindPopup(`
                 <b> Nome: </b> ${allMarkers[marcador].sendName}<br>
                 <b> Data: </b> ${allMarkers[marcador].sendDate}<br>
@@ -97,7 +117,7 @@ function addMarker(){
         let markerLong = position.coords.longitude.toFixed(6)
         let markerAccuracy = position.coords.accuracy
         
-        let marker = L.marker([markerLat, markerLong], {draggable: true, title: "novoMarcador"})
+        let marker = L.marker([markerLat, markerLong], {draggable: true, title: "novoMarcador", icon: redIcon})
 
         if (firstMarker){
             marker.addTo(map)
