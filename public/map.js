@@ -10,28 +10,20 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var video
 var button
 
-let sketch = function(p) {
-    p.setup = function(){
-      p.createCanvas(320, 240);
-      p.background(50);
-      video = p.createCapture(p.VIDEO)
-      video.size(320, 240)
-      video.hide()
-      button = p.createButton('snap')
-      button.mousePressed(p.takesnap)
-      button.class('btn btn-primary')
-    }
+function setup() {
+  var canvas = createCanvas(320, 240)
+  canvas.parent('foto')
+  background(255, 0, 200)
 
-    p.draw = function() {
-        p.image(video, 0, 0, 320, 240);
-    }
+  video = createCapture(VIDEO)
+  video.size(320, 240)
+  
+}
 
-    p.takesnap = function(){
-        p.image(video, 0, 0, 320, 240)
-    }
+function draw() {
+    image(video, 0, 0, 320, 240);
+}
 
-  };
-  new p5(sketch, 'foto');
 
 //Green marker
 var greenIcon = new L.Icon({
