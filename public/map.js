@@ -7,22 +7,33 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(mymap);
 
 //P5 code
-var video
-var button
+let canvas
+let video
+let button
+let removepic
 
 function setup() {
-  var canvas = createCanvas(320, 240)
-  canvas.parent('foto')
-  background(255, 0, 200)
+    canvas = createCanvas(320, 240)
+    canvas.parent('foto')
+    background(255, 0, 200)
+    canvas.hide()
 
-  video = createCapture(VIDEO)
-  video.size(320, 240)
-  
+    video = createCapture(VIDEO)
+    video.size(320, 240)
+    video.parent('foto')
+
+    button = createButton('snap')
+    button.mousePressed(takesnap)
+    button.class('btn btn-primary snap')
+    button.parent('foto')
 }
 
-function draw() {
+function takesnap() {
+    video.hide()
+    canvas.show()
     image(video, 0, 0, 320, 240);
 }
+
 
 
 //Green marker
